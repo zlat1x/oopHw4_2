@@ -7,7 +7,7 @@ namespace Task2_2
 {
     public class Manager : Worker
     {
-        private static readonly Random Rng = new Random();
+        private readonly Random Rng = new Random();
 
         public Manager(string name) : base(name) { Position = "Менеджер"; }
 

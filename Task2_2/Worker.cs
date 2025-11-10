@@ -5,16 +5,11 @@ using System.Threading.Tasks;
 
 namespace Task2_2
 {
-    public abstract class Worker
+    public abstract class Worker(string name)
     {
-        public string Name { get; protected set; }
-        public string Position { get; protected set; }
+        public string Name { get; protected set; } = string.IsNullOrWhiteSpace(name) ? "NoName" : name.Trim();
+        public string? Position { get; protected set; }
         public string WorkDay { get; protected set; } = string.Empty;
-
-        protected Worker(string name)
-        {
-            Name = string.IsNullOrWhiteSpace(name) ? "NoName" : name.Trim();
-        }
 
         protected void Call() { WorkDay += "Call; "; }
         protected void WriteCode() { WorkDay += "WriteCode; "; }
@@ -24,6 +19,6 @@ namespace Task2_2
 
         protected void ResetDay() { WorkDay = string.Empty; }
         
-        public override string ToString() => $"{Name} - {Position} - {WorkDay}";
+        public override string ToString() => $"{Name} - {Position ?? "Unknown"} - {WorkDay}";
     }
 }

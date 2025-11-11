@@ -1,5 +1,5 @@
 using System;
-using System.Collections.ObjectModel;  
+using System.Collections.ObjectModel;
 using Lab5Maui.Models;
 
 namespace Lab5Maui.ViewModels
@@ -7,6 +7,9 @@ namespace Lab5Maui.ViewModels
     public class MainViewModel
     {
         public ObservableCollection<Product> Items { get; } = new();
+
+        // toggle: додаємо по черзі Food / Book
+        private bool _addFoodNext = true;
 
         public MainViewModel()
         {
@@ -28,13 +31,28 @@ namespace Lab5Maui.ViewModels
 
         public void AddSample()
         {
-            Items.Add(new FoodProduct {
-                Name = "Bread", Price = 25, CountryOfOrigin = "UA",
-                PackingDate = DateTime.Today,
-                Description = "Bakery",
-                ExpirationDate = DateTime.Today.AddDays(3),
-                Quantity = 1, Unit = "pc"
-            });
+            if (_addFoodNext)
+            {
+                Items.Add(new FoodProduct {
+                    Name = "Bread", Price = 25, CountryOfOrigin = "UA",
+                    PackingDate = DateTime.Today,
+                    Description = "Bakery",
+                    ExpirationDate = DateTime.Today.AddDays(3),
+                    Quantity = 1, Unit = "pc"
+                });
+            }
+            else
+            {
+                Items.Add(new Book {
+                    Name = "The Programmer", Price = 720, CountryOfOrigin = "UA",
+                    PackingDate = DateTime.Today,
+                    Description = "Software craftsmanship",
+                    Pages = 352, Publisher = "Addison-Wesley",
+                    Authors = { "Andrew Hunt", "David Thomas" }
+                });
+            }
+
+            _addFoodNext = !_addFoodNext;
         }
 
         public void RemoveLast()
